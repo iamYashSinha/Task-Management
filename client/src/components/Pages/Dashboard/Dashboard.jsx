@@ -45,7 +45,16 @@ const Dashboard = () => {
                   startIcon={<ListAltIcon />}
                   onClick={FetchTasksByEmail}
                >
-                  Fetch Tasks
+                  Fetch Tasks By ID
+               </Button>
+            </Link>
+            <Link to={`/fetch-tasks/`} className="dashboard-option">
+               <Button
+                  variant="contained"
+                  color="secondary"
+                  startIcon={<ListAltIcon />}
+               >
+                  Fetch All Tasks
                </Button>
             </Link>
          </div>

@@ -7,6 +7,7 @@ import {useSelector} from 'react-redux';
 import AddTask from './components/Pages/AddTasks/AddTask';
 import FetchTasks from './components/Pages/FetchTasks/FetchTask';
 import Dashboard from './components/Pages/Dashboard/Dashboard';
+import FetchAllTasks from './components/Pages/FetchTasks/FetchAllTasks';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path='/task-management-dashboard' element={Auth ? <Dashboard /> : <Navigate to='/' />} />
 
           <Route path ='/fetch-tasks/:email' element={<FetchTasks />} />
+          <Route path ='/fetch-tasks' element={<FetchAllTasks />} />
           <Route path ='/add-task' element={Auth ? <AddTask /> : <Navigate to='/' />} />
         </Routes>
       </BrowserRouter>
