@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './AddTask.css';
 import CustomSnackbar from '../../Utility/Snackbar/Snackbar';
+import Navbar from '../../Navbar/Navbar';
 
 const AddTask = ({ onSubmit }) => {
    const [title, setTitle] = useState('');
@@ -49,7 +50,14 @@ const AddTask = ({ onSubmit }) => {
       }
    };
 
+   const handleLogout = () => {
+      localStorage.removeItem('token');
+      window.location.href = '/';
+   }
+
    return (
+      <>
+      
       <div>
          <h2>Add Task</h2>
          <form onSubmit={handleSubmit}>
@@ -64,11 +72,14 @@ const AddTask = ({ onSubmit }) => {
             </label>
             <br />
             <button type="submit">Add Task</button>
+            <button style={{marginTop: '10px'}} onClick={handleLogout}>Logout</button>
          </form>
 
          {/* Material-UI Snackbar component */}
          <CustomSnackbar open={showSnackbar} message="Task added successfully!" onClose={handleCloseSnackbar} />
       </div>
+      </>
+      
    );
 };
 
