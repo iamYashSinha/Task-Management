@@ -145,3 +145,5 @@ Client-Side:
   - **Description:** Register a new user.
 
 
+### Fronent-Deployed Link
+Hosting URL: https://task-management-7a088.web.app
