@@ -38,3 +38,20 @@ export const createTask = async (req, res) => {
         res.status(500).json({ message: 'Error creating task', error });
     }
 }
+
+//delete based on task email id passing email to the url http://localhost:5001/tasks/delete/tasks/p@gmail.com
+export const deleteTask = async (req, res) => {
+    const id = req.params.id;
+    try {
+        //use snapshot to get the task id
+        const snapshot = await admin.firestore().collection('tasks').where('email', '==', id).get();
+        snapshot.forEach(doc => {
+            doc.ref.delete();
+        });
+        res.status(200).json({ message: 'Task deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting task', error });
+    }
+}
+
+

@@ -25,6 +25,10 @@ const Dashboard = () => {
         }
     }
     const email = localStorage.getItem('email');
+    const handleLogout = () => {
+         localStorage.removeItem('token');
+         window.location.href = '/';
+      }
    return (
       <div className="dashboard-container">
          <h2>Welcome to Your Dashboard</h2>
@@ -58,6 +62,7 @@ const Dashboard = () => {
                </Button>
             </Link>
          </div>
+         <button style={{marginTop: '10px'}} onClick={handleLogout}>Logout</button>
       </div>
    );
 };

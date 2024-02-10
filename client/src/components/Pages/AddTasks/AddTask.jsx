@@ -39,9 +39,8 @@ const AddTask = ({ onSubmit }) => {
 
          const data = await response.json();
          console.log(data);
-
-         // Show Material-UI Snackbar after form submission
          setShowSnackbar(true);
+         window.location.href = '/add-task';
 
       } catch (error) {
          console.error('Error creating task:', error);
@@ -72,7 +71,7 @@ const AddTask = ({ onSubmit }) => {
             <button type="submit">Add Task</button>
          </form>
          <button style={{marginTop: '10px'}} onClick={handleLogout}>Logout</button>
-
+         <button style={{marginTop: '10px', marginLeft: "10px"}} onClick={() => window.location.href = '/task-management-dashboard'}>Go To DashBoard</button>
          {/* Material-UI Snackbar component */}
          <CustomSnackbar open={showSnackbar} message="Task added successfully!" onClose={handleCloseSnackbar} />
       </div>

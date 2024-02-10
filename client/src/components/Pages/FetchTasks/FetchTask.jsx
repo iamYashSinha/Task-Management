@@ -4,7 +4,7 @@ import './FetchedTask.css';
 
 const FetchedTasks = () => {
    const [tasks, setTasks] = useState([]);
-
+   const id = localStorage.getItem('email');
    useEffect(() => {
       const fetchTasksByEmail = async () => {
          const email = localStorage.getItem('email');
@@ -24,7 +24,26 @@ const FetchedTasks = () => {
       };
 
       fetchTasksByEmail();
-   }, []); // Run only once on component mount
+   }, []);
+
+   //delete based on id
+   const handleDeleteTask = async () => {
+      try {
+         await fetch(`http://localhost:5001/tasks/delete/tasks/${id}`, {
+            method: 'DELETE',
+         });
+         const updatedTasks = tasks.filter((task) => task._id !== id);
+         setTasks(updatedTasks);
+         window.location.reload();
+      }  catch (error) {
+         console.log(error);
+      }
+   };
+
+   const handleLogout = () => {
+      localStorage.removeItem('token');
+      window.location.href = '/';
+   }
 
    return (
       <div className="fetched-tasks-container">
@@ -34,9 +53,11 @@ const FetchedTasks = () => {
                <li key={task._id} className="task-item">
                   <strong>{task.title}</strong>
                   <p>{task.description}</p>
+                  <button onClick={() => handleDeleteTask(task._id)}>Delete</button>
                </li>
             ))}
          </ul>
+         <button style={{marginTop: '10px'}} onClick={handleLogout}>Logout</button>
       </div>
    );
 };
