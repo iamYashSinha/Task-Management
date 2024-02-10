@@ -149,7 +149,11 @@ Client-Side:
 ![alt text](<Screenshot 2024-02-11 at 1.03.01 AM.png>)
 ![alt text](<Screenshot 2024-02-11 at 1.03.08 AM.png>)
 
+### Demonstration
+
+https://github.com/iamYashSinha/Task-Management/assets/71075101/f10e5ad0-5f9c-4a93-bc53-63575f84cac9
+
 ### Fronent-Deployed Link
 Hosting URL: https://task-management-7a088.web.app
-Server Side: server side is not deployed due to some reasons, one can clone or refer the attached video to understand working of the project
+Server Side: The server side is not deployed due to some reasons, one can clone or refer the attached video to understand working of the project
 
