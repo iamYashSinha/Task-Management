@@ -145,6 +145,11 @@ Client-Side:
   - **Description:** Register a new user.
 
 
+### Database Image
+![alt text](<Screenshot 2024-02-11 at 1.03.01 AM.png>)
+![alt text](<Screenshot 2024-02-11 at 1.03.08 AM.png>)
+
 ### Fronent-Deployed Link
 Hosting URL: https://task-management-7a088.web.app
 Server Side: server side is not deployed due to some reasons, one can clone or refer the attached video to understand working of the project
+
