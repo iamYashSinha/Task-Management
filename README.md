@@ -147,3 +147,4 @@ Client-Side:
 
 ### Fronent-Deployed Link
 Hosting URL: https://task-management-7a088.web.app
+Server Side: server side is not deployed due to some reasons, one can clone or refer the attached video to understand working of the project
