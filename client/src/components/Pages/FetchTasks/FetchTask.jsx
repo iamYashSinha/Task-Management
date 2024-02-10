@@ -40,6 +40,24 @@ const FetchedTasks = () => {
       }
    };
 
+   const handleUpdateTask = async (currentTitle, currentDescription) => {
+      try {
+         const updatedTitle = prompt('Enter updated title:', currentTitle) || currentTitle;
+         const updatedDescription = prompt('Enter updated description:', currentDescription) || currentDescription;
+         const id = localStorage.getItem('email');
+         await fetch(`http://localhost:5001/tasks/update/task/${id}`, {
+            method: 'PUT',
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ title: updatedTitle, description: updatedDescription }),
+         });
+         // window.location.reload();
+      } catch (error) {
+         console.log(error);
+      }
+   };
+
    const handleLogout = () => {
       localStorage.removeItem('token');
       window.location.href = '/';
@@ -54,6 +72,7 @@ const FetchedTasks = () => {
                   <strong>{task.title}</strong>
                   <p>{task.description}</p>
                   <button onClick={() => handleDeleteTask(task._id)}>Delete</button>
+                  <button onClick={() => handleUpdateTask(task._id)}>Update</button>
                </li>
             ))}
          </ul>

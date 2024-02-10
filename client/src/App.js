@@ -22,7 +22,6 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path='/sign-up' element={<Signup />} />
           <Route path='/task-management-dashboard' element={Auth ? <Dashboard /> : <Navigate to='/' />} />
-
           <Route path ='/fetch-tasks/:email' element={Auth ? <FetchTasks /> : <Navigate to='/' />} />
           <Route path ='/fetch-tasks' element={Auth ? <FetchAllTasks /> : <Navigate to='/' />} />
           <Route path ='/add-task' element={Auth ? <AddTask /> : <Navigate to='/' />} />

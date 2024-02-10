@@ -54,4 +54,17 @@ export const deleteTask = async (req, res) => {
     }
 }
 
-
+//update task based on task id where email = user email
+export const updateTask = async (req, res) => {
+    const id = req.params.id;
+    const { title, description } = req.body;
+    try {
+        const snapshot = await admin.firestore().collection('tasks').where('email', '==', id).get();
+        snapshot.forEach(doc => {
+            doc.ref.update({ title, description });
+        });
+        res.status(200).json({ message: 'Task updated successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating task', error });
+    }
+}
