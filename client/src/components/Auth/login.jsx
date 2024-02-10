@@ -52,11 +52,12 @@ export default function Login() {
       }),
     });
     //if response == 200, redirect to dashboard
-    if (response.ok) {
+    const loggedInUser = await response.json();
+    if (loggedInUser) {
       // If the response status is 200, redirect to the dashboard
       dispatch(
         setLogin({
-          user: data.get('email'),
+          user: response.email,
           token: response.token,
         })
       );

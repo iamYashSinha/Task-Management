@@ -16,7 +16,7 @@ export const login = async (req, res) => {
         const user = doc.data();
         if (user.password === password) {
             const token = jwt.sign({email, password}, 'secret', {expiresIn: '1h'});
-            res.status(200).json({message: 'Login successful', token});
+            res.status(200).json({email, token});
         } else {
             res.status(400).json({message: 'Invalid credentials'});
         }
