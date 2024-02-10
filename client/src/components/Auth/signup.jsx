@@ -45,6 +45,8 @@ export default function Signup() {
             name: data.get('firstName') + ' ' + data.get('lastName'),
         }),
         });
+
+    window.location.href = '/';
   };
 
   return (
