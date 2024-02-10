@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import authRoutes from './routes/auth.js';
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,9 @@ app.get('/', (req, res) => {
     res.json({ message: 'Hello World' });
 });
 
+
+//auth route
+app.use('/auth', authRoutes);
 
 //server port and start
 app.listen(PORT, () => {

@@ -11,7 +11,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import {useDispatch} from 'react-redux';
+import { setLogin } from '../../state';
 
 function Copyright(props) {
   return (
@@ -31,13 +32,43 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
-  const handleSubmit = (event) => {
+  const dispatch = useDispatch();
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
+    try {
+    const response = await fetch('http://localhost:5001/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: data.get('email'),
+        password: data.get('password'),
+      }),
+    });
+    //if response == 200, redirect to dashboard
+    if (response.ok) {
+      // If the response status is 200, redirect to the dashboard
+      dispatch(
+        setLogin({
+          user: data.get('email'),
+          token: response.token,
+        })
+      );
+      window.location.href = '/task-management-dashboard';
+    } else {
+      // Handle other response statuses (e.g., display an error message)
+      console.error('Login failed');
+    }
+  } catch (error) {
+    // Handle fetch errors
+    console.error('Fetch error:', error);
+  }
   };
 
   return (
