@@ -6,6 +6,7 @@ import Signup from './components/Auth/signup';
 import {useSelector} from 'react-redux';
 import AddTask from './components/Pages/AddTasks/AddTask';
 import FetchTasks from './components/Pages/FetchTasks/FetchTask';
+import Dashboard from './components/Pages/Dashboard/Dashboard';
 
 
 function App() {
@@ -17,10 +18,12 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={Auth ? <AddTask /> : <Navigate to='/task-management-dashboard' />} />
+          <Route path="/" element={<Login />} />
           <Route path='/sign-up' element={<Signup />} />
-          <Route path='/task-management-dashboard' element={<AddTask/>} />
-          <Route path ='/fetch-tasks' element={<FetchTasks />} />
+          <Route path='/task-management-dashboard' element={Auth ? <Dashboard /> : <Navigate to='/' />} />
+
+          <Route path ='/fetch-tasks/:email' element={<FetchTasks />} />
+          <Route path ='/add-task' element={Auth ? <AddTask /> : <Navigate to='/' />} />
         </Routes>
       </BrowserRouter>
     </>

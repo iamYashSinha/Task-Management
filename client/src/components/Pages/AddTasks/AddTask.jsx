@@ -27,14 +27,14 @@ const AddTask = ({ onSubmit }) => {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
-
+      const email = localStorage.getItem('email');
       try {
          const response = await fetch('http://localhost:5001/tasks/add/tasks', {
             method: 'POST',
             headers: {
                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ title, description }),
+            body: JSON.stringify({ title, description, email }),
          });
 
          const data = await response.json();
@@ -42,8 +42,6 @@ const AddTask = ({ onSubmit }) => {
 
          // Show Material-UI Snackbar after form submission
          setShowSnackbar(true);
-         setTitle('');
-         setDescription('');
 
       } catch (error) {
          console.error('Error creating task:', error);
@@ -72,8 +70,8 @@ const AddTask = ({ onSubmit }) => {
             </label>
             <br />
             <button type="submit">Add Task</button>
-            <button style={{marginTop: '10px'}} onClick={handleLogout}>Logout</button>
          </form>
+         <button style={{marginTop: '10px'}} onClick={handleLogout}>Logout</button>
 
          {/* Material-UI Snackbar component */}
          <CustomSnackbar open={showSnackbar} message="Task added successfully!" onClose={handleCloseSnackbar} />

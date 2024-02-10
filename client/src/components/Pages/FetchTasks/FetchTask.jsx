@@ -1,107 +1,44 @@
-import * as React from 'react';
-import { useEffect } from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import FolderIcon from '@mui/icons-material/Folder';
-import DeleteIcon from '@mui/icons-material/Delete';
+// FetchedTasks.js
+import React, { useState, useEffect } from 'react';
+import './FetchedTask.css';
 
-function generate(element) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    }),
-  );
-}
+const FetchedTasks = () => {
+   const [tasks, setTasks] = useState([]);
 
-const Demo = styled('div')(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-}));
+   useEffect(() => {
+      const fetchTasksByEmail = async () => {
+         const email = localStorage.getItem('email');
+         try {
+            const response = await fetch('http://localhost:5001/tasks/fetchtasks/email', {
+               method: 'POST',
+               headers: {
+                  'Content-Type': 'application/json',
+               },
+               body: JSON.stringify({ email }),
+            });
+            const fetchedTasks = await response.json();
+            setTasks(fetchedTasks);
+         } catch (error) {
+            console.log(error);
+         }
+      };
 
-export default function FetchTasks() {
-  const [tasks, setTasks] = React.useState([]); 
-  const [dense, setDense] = React.useState(false);
-  const [secondary, setSecondary] = React.useState(false);
+      fetchTasksByEmail();
+   }, []); // Run only once on component mount
 
-  const getTasks = async () => {
-    try {
-      const response = await fetch('http://localhost:5001/tasks/user-tasks');
-      const data = await response.json();
-      console.log(data)
-      setTasks(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+   return (
+      <div className="fetched-tasks-container">
+         <h2>Fetched Tasks</h2>
+         <ul className="task-list">
+            {tasks.map((task) => (
+               <li key={task._id} className="task-item">
+                  <strong>{task.title}</strong>
+                  <p>{task.description}</p>
+               </li>
+            ))}
+         </ul>
+      </div>
+   );
+};
 
-  useEffect(() => {
-    getTasks();
-  } , []);
-
-  return (
-    <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
-      <FormGroup row>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={dense}
-              onChange={(event) => setDense(event.target.checked)}
-            />
-          }
-          label="Enable dense"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={secondary}
-              onChange={(event) => setSecondary(event.target.checked)}
-            />
-          }
-          label="Enable Description text"
-        />
-      </FormGroup>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-            Task Lists
-          </Typography>
-          <Demo>
-            <List dense={dense}>
-              {tasks.map((task, index) => (
-                <ListItem
-                  key={index}
-                  secondaryAction={
-                    <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  }
-                >
-                  <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={task.taskName} // Assuming your task object has a 'title' property
-                    secondary={secondary ? task.taskDescription : null} // Assuming your task object has a 'description' property
-                  />
-                </ListItem>
-              ))}
-            </List>
-          </Demo>
-        </Grid>
-      </Grid>
-    </Box>
-  );
-}
+export default FetchedTasks;

@@ -41,6 +41,7 @@ export default function Login() {
       email: data.get('email'),
       password: data.get('password'),
     });
+    localStorage.setItem('email', data.get('email'));
     try {
       const response = await fetch('http://localhost:5001/auth/login', { 
         method: 'POST',
