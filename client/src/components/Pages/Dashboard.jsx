@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -29,8 +30,24 @@ const Demo = styled('div')(({ theme }) => ({
 }));
 
 export default function Dashboard() {
+  const [tasks, setTasks] = React.useState([]); 
   const [dense, setDense] = React.useState(false);
   const [secondary, setSecondary] = React.useState(false);
+
+  const getTasks = async () => {
+    try {
+      const response = await fetch('http://localhost:5001/tasks/user-tasks');
+      const data = await response.json();
+      console.log(data)
+      setTasks(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getTasks();
+  } , []);
 
   return (
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
@@ -51,7 +68,7 @@ export default function Dashboard() {
               onChange={(event) => setSecondary(event.target.checked)}
             />
           }
-          label="Enable secondary text"
+          label="Enable Description text"
         />
       </FormGroup>
       <Grid container spacing={2}>
@@ -61,8 +78,9 @@ export default function Dashboard() {
           </Typography>
           <Demo>
             <List dense={dense}>
-              {generate(
+              {tasks.map((task, index) => (
                 <ListItem
+                  key={index}
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
                       <DeleteIcon />
@@ -75,11 +93,11 @@ export default function Dashboard() {
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? 'Secondary text' : null}
+                    primary={task.taskName} // Assuming your task object has a 'title' property
+                    secondary={secondary ? task.taskDescription : null} // Assuming your task object has a 'description' property
                   />
-                </ListItem>,
-              )}
+                </ListItem>
+              ))}
             </List>
           </Demo>
         </Grid>

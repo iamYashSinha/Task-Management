@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import authRoutes from './routes/auth.js';
+import taskRoutes from './routes/tasks.js';
 
 const app = express();
 app.use(express.json());
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 
 //auth route
 app.use('/auth', authRoutes);
+app.use('/tasks', taskRoutes);
 
 //server port and start
 app.listen(PORT, () => {
