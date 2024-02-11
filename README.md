@@ -157,3 +157,13 @@ https://github.com/iamYashSinha/Task-Management/assets/71075101/f10e5ad0-5f9c-4a
 Hosting URL: https://task-management-7a088.web.app
 Server Side: The server side is not deployed due to some reasons, one can clone or refer the attached video to understand working of the project
 
+### Next Project Revision (Pending Work): 
+1. Form Validations
+2. Refractor API's
+3. Add Unit + Integration Test Cases for components as well as API's
+4. Middlewares for API's to stop unwanted Requests.
+5. Rate Limitation for API's
+
+   
+   
+
